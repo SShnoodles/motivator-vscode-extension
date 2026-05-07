@@ -44,8 +44,7 @@
 ```
 
 ## 自定义图片
-
-1. 将图片（支持 `.png .jpg .jpeg .gif .webp .svg`）放入 `images/` 文件夹，或
+1. 将图片（支持 `.png .jpg .jpeg .gif .webp .svg`）放入 ~/.vscode/extensions/ssnoodles.motivator-vscode-extension-{version}/`images/` 文件夹，或
 2. 在设置中配置 `motivator.imagesPath` 指向你自己的图片文件夹
 
 默认内置 2 张 SVG 插图。
@@ -58,6 +57,13 @@ npm run compile
 ```
 
 然后按 `F5` 在 VS Code 中启动扩展开发主机。
+
+## 打包
+
+```bash
+npm i -g @vscode/vsce
+vsce package
+```
 
 ## 许可证
 

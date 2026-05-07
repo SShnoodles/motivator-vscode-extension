@@ -109,8 +109,9 @@ export class MotivatorPanel {
 
     .container {
       text-align: center;
-      max-width: 85vw;
-      width: 85%;
+      max-width: 80vw;
+      width: 80%;
+      min-height: 80vh;
       padding: 48px 44px;
       background: rgba(255, 255, 255, 0.88);
       border-radius: 32px;
