@@ -2,7 +2,7 @@
   "name": "motivator-vscode-extension",
   "displayName": "Motivator - 休息提醒助手",
   "description": "定时提醒你休息的可爱助手，为你的编程生活加油打气！",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": "ssnoodles",
 	"publisher": "ssnoodles",
 	"license": "MIT",
