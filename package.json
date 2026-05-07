@@ -2,7 +2,7 @@
   "name": "motivator-vscode-extension",
   "displayName": "Motivator - 休息提醒助手",
   "description": "定时提醒你休息的可爱助手，为你的编程生活加油打气！",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "ssnoodles",
 	"publisher": "ssnoodles",
 	"license": "MIT",
@@ -108,6 +108,13 @@
           },
           "default": [],
           "description": "自定义提示消息列表。留空则使用内置消息"
+        },
+        "motivator.breakDurationMinutes": {
+          "type": "number",
+          "default": 5,
+          "minimum": 5,
+          "maximum": 60,
+          "description": "休息倒计时时长（分钟），触发提醒后在状态栏显示倒计时"
         },
         "motivator.showNotification": {
           "type": "boolean",

@@ -7,6 +7,9 @@ import { getRandomMessage } from './messages';
 export class ReminderService implements vscode.Disposable {
   private cronTask: ReturnType<typeof cron.schedule> | null = null;
   private intervalTimer: ReturnType<typeof setInterval> | null = null;
+  private countdownTimer: ReturnType<typeof setInterval> | null = null;
+  private flashTimer: ReturnType<typeof setInterval> | null = null;
+  private countdownSeconds: number = 0;
 
   private readonly imageManager: ImageManager;
   private readonly extensionUri: vscode.Uri;
@@ -72,6 +75,7 @@ export class ReminderService implements vscode.Disposable {
     const customMessages = config.get<string[]>('customMessages', []);
     const showNotification = config.get<boolean>('showNotification', true);
     const showWebview = config.get<boolean>('showWebview', true);
+    const breakMinutes = config.get<number>('breakDurationMinutes', 5);
 
     const message = getRandomMessage(customMessages);
     const imagePath = this.imageManager.getNextImage();
@@ -83,6 +87,67 @@ export class ReminderService implements vscode.Disposable {
     if (showNotification) {
       vscode.window.showInformationMessage(`🌸 ${message}`);
     }
+
+    this.startCountdown(breakMinutes * 60);
+  }
+
+  /** 启动状态栏倒计时，结束时闪烁提示。 */
+  private startCountdown(seconds: number): void {
+    this.clearCountdown();
+    this.countdownSeconds = seconds;
+    this.renderCountdown();
+
+    this.countdownTimer = setInterval(() => {
+      this.countdownSeconds--;
+      if (this.countdownSeconds <= 0) {
+        this.clearCountdown();
+        this.startFlash();
+      } else {
+        this.renderCountdown();
+      }
+    }, 1000);
+  }
+
+  /** 倒计时结束后闪烁状态栏提示"休息结束"。 */
+  private startFlash(): void {
+    let toggle = false;
+    let count = 0;
+    const MAX = 10;
+    this.flashTimer = setInterval(() => {
+      toggle = !toggle;
+      count++;
+      this.statusBarItem.text = toggle ? `$(bell) 休息结束！` : `$(bell) 💪 继续加油！`;
+      this.statusBarItem.color = toggle
+        ? new vscode.ThemeColor('statusBarItem.warningForeground')
+        : new vscode.ThemeColor('statusBarItem.prominentForeground');
+      if (count >= MAX) {
+        clearInterval(this.flashTimer!);
+        this.flashTimer = null;
+        this.setStatusBar(!!this.cronTask || !!this.intervalTimer);
+      }
+    }, 500);
+  }
+
+  /** 将倒计时秒数渲染到状态栏。 */
+  private renderCountdown(): void {
+    const m = Math.floor(this.countdownSeconds / 60).toString().padStart(2, '0');
+    const s = (this.countdownSeconds % 60).toString().padStart(2, '0');
+    this.statusBarItem.text = `$(coffee) 休息中 ${m}:${s}`;
+    this.statusBarItem.tooltip = '休息倒计时进行中，点击立即再次触发提醒';
+    this.statusBarItem.color = new vscode.ThemeColor('statusBarItem.prominentForeground');
+  }
+
+  /** 清除倒计时定时器。 */
+  private clearCountdown(): void {
+    if (this.countdownTimer) {
+      clearInterval(this.countdownTimer);
+      this.countdownTimer = null;
+    }
+    if (this.flashTimer) {
+      clearInterval(this.flashTimer);
+      this.flashTimer = null;
+    }
+    this.countdownSeconds = 0;
   }
 
   /** 清除 cron 任务和间隔定时器。 */
@@ -96,7 +161,6 @@ export class ReminderService implements vscode.Disposable {
       this.intervalTimer = null;
     }
   }
-
   /** 根据激活状态更新状态栏文本和颜色。 */
   private setStatusBar(active: boolean): void {
     if (active) {
@@ -124,6 +188,7 @@ export class ReminderService implements vscode.Disposable {
   /** 清理所有资源，插件停用时自动调用。 */
   dispose(): void {
     this.clearSchedule();
+    this.clearCountdown();
     this.statusBarItem.dispose();
     MotivatorPanel.disposeAll();
   }
