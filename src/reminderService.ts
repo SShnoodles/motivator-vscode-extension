@@ -124,6 +124,7 @@ export class ReminderService implements vscode.Disposable {
         clearInterval(this.flashTimer!);
         this.flashTimer = null;
         this.setStatusBar(!!this.cronTask || !!this.intervalTimer);
+        MotivatorPanel.disposeAll();
       }
     }, 500);
   }
