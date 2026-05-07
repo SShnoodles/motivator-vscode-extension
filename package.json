@@ -1,0 +1,145 @@
+{
+  "name": "motivator-vscode-extension",
+  "displayName": "Motivator - 休息提醒助手",
+  "description": "定时提醒你休息的可爱助手，为你的编程生活加油打气！",
+  "version": "0.1.0",
+  "author": "ssnoodles",
+	"publisher": "ssnoodles",
+	"license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SShnoodles/motivator-vscode-extension"
+  },
+  "homepage": "https://github.com/SShnoodles/motivator-vscode-extension/blob/master/README.md",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "rest",
+    "reminder",
+    "motivator",
+    "health",
+    "productivity",
+    "休息",
+    "提醒"
+  ],
+  "icon": "icon.png",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "motivator.start",
+        "title": "Motivator: ▶ 开始提醒"
+      },
+      {
+        "command": "motivator.stop",
+        "title": "Motivator: ⏹ 停止提醒"
+      },
+      {
+        "command": "motivator.showNow",
+        "title": "Motivator: 🌸 立即显示提醒"
+      },
+      {
+        "command": "motivator.openSettings",
+        "title": "Motivator: ⚙ 打开设置"
+      }
+    ],
+    "configuration": {
+      "title": "Motivator 休息提醒",
+      "properties": {
+        "motivator.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "启动 VS Code 时自动开始提醒"
+        },
+        "motivator.scheduleType": {
+          "type": "string",
+          "enum": [
+            "interval",
+            "cron"
+          ],
+          "enumDescriptions": [
+            "固定时间间隔（分钟）",
+            "Cron 表达式（更灵活的时间控制）"
+          ],
+          "default": "interval",
+          "description": "提醒方式"
+        },
+        "motivator.intervalMinutes": {
+          "type": "number",
+          "default": 60,
+          "minimum": 1,
+          "maximum": 1440,
+          "description": "提醒间隔时间（分钟），仅在 scheduleType 为 interval 时有效"
+        },
+        "motivator.cronExpression": {
+          "type": "string",
+          "default": "0 * * * *",
+          "description": "Cron 表达式，仅在 scheduleType 为 cron 时有效。示例：每小时='0 * * * *'，每30分钟='*/30 * * * *'，工作日每小时='0 9-18 * * 1-5'"
+        },
+        "motivator.imageOrder": {
+          "type": "string",
+          "enum": [
+            "random",
+            "sequential"
+          ],
+          "enumDescriptions": [
+            "随机播放",
+            "顺序播放"
+          ],
+          "default": "random",
+          "description": "图片播放顺序"
+        },
+        "motivator.imagesPath": {
+          "type": "string",
+          "default": "",
+          "description": "自定义图片文件夹路径（绝对路径）。留空则使用插件内置 images 文件夹。支持 .png .jpg .jpeg .gif .webp .svg 格式"
+        },
+        "motivator.customMessages": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "description": "自定义提示消息列表。留空则使用内置消息"
+        },
+        "motivator.showNotification": {
+          "type": "boolean",
+          "default": true,
+          "description": "是否在右下角显示通知消息"
+        },
+        "motivator.showWebview": {
+          "type": "boolean",
+          "default": true,
+          "description": "是否打开图片面板"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run esbuild-base -- --minify",
+    "esbuild-base": "esbuild ./src/extension.ts --bundle --outfile=out/extension.js --external:vscode --format=cjs --platform=node",
+    "compile": "npm run esbuild-base -- --sourcemap",
+    "watch": "npm run esbuild-base -- --sourcemap --watch",
+    "lint": "eslint src --ext ts"
+  },
+  "devDependencies": {
+    "@types/node": "^18.0.0",
+    "@types/node-cron": "^3.0.11",
+    "@types/vscode": "^1.74.0",
+    "@typescript-eslint/eslint-plugin": "^5.42.0",
+    "@typescript-eslint/parser": "^5.42.0",
+    "esbuild": "^0.19.0",
+    "eslint": "^8.26.0",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "node-cron": "^3.0.3"
+  }
+}

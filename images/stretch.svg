@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" width="480" height="320">
+  <defs>
+    <radialGradient id="bgS" cx="50%" cy="50%" r="60%">
+      <stop offset="0%" style="stop-color:#fffde7"/>
+      <stop offset="100%" style="stop-color:#fff3e0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="480" height="320" fill="url(#bgS)" rx="24"/>
+
+  <!-- Sun rays -->
+  <text x="60"  y="55"  font-size="24" opacity="0.55">☀️</text>
+  <text x="390" y="60"  font-size="20" opacity="0.45">🌤</text>
+  <text x="40"  y="265" font-size="18" opacity="0.4">🌈</text>
+  <text x="400" y="270" font-size="20" opacity="0.45">⭐</text>
+  <text x="225" y="38"  font-size="16" opacity="0.4">✨</text>
+
+  <!-- Ground -->
+  <ellipse cx="240" cy="262" rx="80" ry="12" fill="#ffe082" opacity="0.5"/>
+
+  <!-- Stick figure stretching -->
+  <!-- Head -->
+  <circle cx="240" cy="95" r="28" fill="#ffcc80" stroke="#f57c00" stroke-width="3"/>
+  <!-- Smile face -->
+  <path d="M229 100 Q240 112 251 100" stroke="#f57c00" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <circle cx="233" cy="93" r="3" fill="#f57c00"/>
+  <circle cx="247" cy="93" r="3" fill="#f57c00"/>
+  <!-- Cheeks -->
+  <ellipse cx="227" cy="103" rx="7" ry="4" fill="#ffb3c1" opacity="0.7"/>
+  <ellipse cx="253" cy="103" rx="7" ry="4" fill="#ffb3c1" opacity="0.7"/>
+
+  <!-- Body -->
+  <line x1="240" y1="123" x2="240" y2="210" stroke="#f57c00" stroke-width="7" stroke-linecap="round"/>
+
+  <!-- Left arm raised (stretching) -->
+  <line x1="240" y1="145" x2="165" y2="100" stroke="#f57c00" stroke-width="7" stroke-linecap="round"/>
+  <!-- Left hand -->
+  <circle cx="163" cy="98" r="9" fill="#ffcc80" stroke="#f57c00" stroke-width="3"/>
+  <text x="148" y="85" font-size="16">⭐</text>
+
+  <!-- Right arm raised (stretching) -->
+  <line x1="240" y1="145" x2="315" y2="100" stroke="#f57c00" stroke-width="7" stroke-linecap="round"/>
+  <!-- Right hand -->
+  <circle cx="317" cy="98" r="9" fill="#ffcc80" stroke="#f57c00" stroke-width="3"/>
+  <text x="318" y="85" font-size="16">⭐</text>
+
+  <!-- Left leg -->
+  <line x1="240" y1="210" x2="195" y2="260" stroke="#f57c00" stroke-width="7" stroke-linecap="round"/>
+  <ellipse cx="193" cy="263" rx="13" ry="7" fill="#ffcc80" stroke="#f57c00" stroke-width="2.5"/>
+
+  <!-- Right leg -->
+  <line x1="240" y1="210" x2="285" y2="260" stroke="#f57c00" stroke-width="7" stroke-linecap="round"/>
+  <ellipse cx="287" cy="263" rx="13" ry="7" fill="#ffcc80" stroke="#f57c00" stroke-width="2.5"/>
+
+  <!-- Energy sparks -->
+  <text x="135" y="140" font-size="22" fill="#ff9800" opacity="0.7">✦</text>
+  <text x="325" y="135" font-size="22" fill="#ff9800" opacity="0.7">✦</text>
+  <text x="152" y="165" font-size="14" fill="#ffc107" opacity="0.6">✦</text>
+  <text x="318" y="168" font-size="14" fill="#ffc107" opacity="0.6">✦</text>
+
+  <!-- Text -->
+  <text x="240" y="300" text-anchor="middle" font-size="17" fill="#e65100" font-family="'PingFang SC','Microsoft YaHei',sans-serif" font-weight="600">伸个懒腰，活动一下吧！💪</text>
+</svg>
