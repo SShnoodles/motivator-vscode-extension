@@ -2,7 +2,7 @@
   "name": "motivator-vscode-extension",
   "displayName": "Motivator - Break Reminder / 休息提醒助手",
   "description": "A cute assistant that reminds you to take breaks and cheers you on while coding. / 定时提醒你休息的可爱助手，为你的编程生活加油打气！",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "author": "ssnoodles",
 	"publisher": "ssnoodles",
 	"license": "MIT",
