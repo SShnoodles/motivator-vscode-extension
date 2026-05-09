@@ -1,7 +1,7 @@
 {
   "name": "motivator-vscode-extension",
-  "displayName": "Motivator - Break Reminder / 休息提醒助手",
-  "description": "A cute assistant that reminds you to take breaks and cheers you on while coding. / 定时提醒你休息的可爱助手，为你的编程生活加油打气！",
+  "displayName": "Motivator - Break Reminder",
+  "description": "A cute VS Code extension that reminds you to take breaks and keeps you healthy while coding.",
   "version": "0.1.3",
   "author": "ssnoodles",
 	"publisher": "ssnoodles",
@@ -35,19 +35,19 @@
     "commands": [
       {
         "command": "motivator.start",
-        "title": "Motivator: ▶ 开始提醒"
+        "title": "Motivator: ▶ Start Reminder"
       },
       {
         "command": "motivator.stop",
-        "title": "Motivator: ⏹ 停止提醒"
+        "title": "Motivator: ⏹ Stop Reminder"
       },
       {
         "command": "motivator.showNow",
-        "title": "Motivator: 🌸 立即显示提醒"
+        "title": "Motivator: 🌸 Show Now"
       },
       {
         "command": "motivator.openSettings",
-        "title": "Motivator: ⚙ 打开设置"
+        "title": "Motivator: ⚙ Open Settings"
       }
     ],
     "configuration": {
@@ -57,17 +57,17 @@
           "type": "string",
           "enum": ["auto", "zh", "en"],
           "enumDescriptions": [
-            "Follow VS Code display language / 跟随 VS Code 显示语言",
-            "中文 / Chinese",
+            "Follow VS Code display language",
+            "Chinese",
             "English"
           ],
           "default": "auto",
-          "description": "Display language for Motivator UI / Motivator 界面显示语言"
+          "description": "Display language for Motivator UI"
         },
         "motivator.enabled": {
           "type": "boolean",
           "default": true,
-          "description": "Auto-start reminder when VS Code launches / 启动 VS Code 时自动开始提醒"
+          "description": "Auto-start reminder when VS Code launches"
         },
         "motivator.scheduleType": {
           "type": "string",
@@ -76,23 +76,23 @@
             "cron"
           ],
           "enumDescriptions": [
-            "Fixed interval (minutes) / 固定时间间隔（分钟）",
-            "Cron expression (more flexible) / Cron 表达式（更灵活的时间控制）"
+            "Fixed interval (minutes)",
+            "Cron expression (more flexible)"
           ],
           "default": "interval",
-          "description": "Reminder schedule type / 提醒方式"
+          "description": "Reminder schedule type"
         },
         "motivator.intervalMinutes": {
           "type": "number",
           "default": 60,
           "minimum": 1,
           "maximum": 1440,
-          "description": "Reminder interval in minutes; only used when scheduleType is 'interval' / 提醒间隔时间（分钟），仅在 scheduleType 为 interval 时有效"
+          "description": "Reminder interval in minutes; only used when scheduleType is 'interval'"
         },
         "motivator.cronExpression": {
           "type": "string",
           "default": "0 * * * *",
-          "description": "Cron expression; only used when scheduleType is 'cron'. Examples: every hour='0 * * * *', every 30 min='*/30 * * * *', weekdays 9-18='0 9-18 * * 1-5' / Cron 表达式，仅在 scheduleType 为 cron 时有效。示例：每小时='0 * * * *'，每30分钟='*/30 * * * *'，工作日每小时='0 9-18 * * 1-5'"
+          "description": "Cron expression; only used when scheduleType is 'cron'. Examples: every hour='0 * * * *', every 30 min='*/30 * * * *', weekdays 9-18='0 9-18 * * 1-5'"
         },
         "motivator.imageOrder": {
           "type": "string",
@@ -101,16 +101,16 @@
             "sequential"
           ],
           "enumDescriptions": [
-            "Random / 随机播放",
-            "Sequential / 顺序播放"
+            "Random",
+            "Sequential"
           ],
           "default": "random",
-          "description": "Image display order / 图片播放顺序"
+          "description": "Image display order"
         },
         "motivator.imagesPath": {
           "type": "string",
           "default": "",
-          "description": "Absolute path to a custom images folder. Leave empty to use the built-in images folder. Supports .png .jpg .jpeg .gif .webp .svg / 自定义图片文件夹路径（绝对路径）。留空则使用插件内置 images 文件夹。支持 .png .jpg .jpeg .gif .webp .svg 格式"
+          "description": "Absolute path to a custom images folder. Leave empty to use the built-in images folder. Supports .png .jpg .jpeg .gif .webp .svg"
         },
         "motivator.customMessages": {
           "type": "array",
@@ -118,24 +118,24 @@
             "type": "string"
           },
           "default": [],
-          "description": "Custom reminder message list. Leave empty to use built-in messages / 自定义提示消息列表。留空则使用内置消息"
+          "description": "Custom reminder message list. Leave empty to use built-in messages"
         },
         "motivator.breakDurationMinutes": {
           "type": "number",
           "default": 5,
           "minimum": 5,
           "maximum": 60,
-          "description": "Break countdown duration in minutes, shown in the status bar after a reminder / 休息倒计时时长（分钟），触发提醒后在状态栏显示倒计时"
+          "description": "Break countdown duration in minutes, shown in the status bar after a reminder"
         },
         "motivator.showNotification": {
           "type": "boolean",
           "default": true,
-          "description": "Show a notification popup in the bottom-right corner / 是否在右下角显示通知消息"
+          "description": "Show a notification popup in the bottom-right corner"
         },
         "motivator.showWebview": {
           "type": "boolean",
           "default": true,
-          "description": "Open the reminder image panel / 是否打开图片面板"
+          "description": "Open the reminder image panel"
         }
       }
     }

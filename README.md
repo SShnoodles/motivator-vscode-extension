@@ -1,71 +1,73 @@
-# Motivator - 休息提醒助手 🌸
+# Motivator - Break Reminder 🌸
 
-一个可爱的 VS Code 休息提醒插件，定时提醒你起身休息、保护眼睛和身体健康！
+A cute VS Code extension that reminds you to take regular breaks, protect your eyes, and stay healthy while coding!
 
-## 功能
+## Features
 
-- ⏰ **定时提醒**：支持固定时间间隔或 Cron 表达式两种调度方式
-- 🖼️ **图片面板**：触发时打开漂亮的全屏图片面板，支持随机或顺序播放
-- ⏱️ **状态栏倒计时**：触发提醒后在状态栏显示休息倒计时，结束时闪烁提示
-- 💬 **可爱提示语**：内置 20 条中文提示语，支持自定义
-- 🔔 **通知消息**：右下角弹出通知，可独立开关
+- ⏰ **Scheduled reminders** — supports a fixed interval or a cron expression
+- 🖼️ **Image panel** — opens a full-screen panel with your images, played randomly or sequentially
+- ⏱️ **Status-bar countdown** — shows a break countdown after each reminder, then flashes when it ends
+- 💬 **Motivational messages** — 20 built-in messages (English & Chinese); fully customizable
+- 🔔 **Notification popup** — bottom-right toast notification, can be toggled independently
+- 🌐 **Bilingual UI** — auto-detects VS Code display language (English / Chinese), or set it manually
 
-## 命令
+## Commands
 
-| 命令 | 说明 |
-|------|------|
-| `Motivator: ▶ 开始提醒` | 启动提醒服务 |
-| `Motivator: ⏹ 停止提醒` | 停止提醒服务 |
-| `Motivator: 🌸 立即显示提醒` | 立即触发一次提醒（同时启动倒计时） |
-| `Motivator: ⚙ 打开设置` | 打开插件设置 |
+| Command | Description |
+|---------|-------------|
+| `Motivator: ▶ Start Reminder` | Start the reminder service |
+| `Motivator: ⏹ Stop Reminder` | Stop the reminder service |
+| `Motivator: 🌸 Show Now` | Trigger a reminder immediately (also starts the countdown) |
+| `Motivator: ⚙ Open Settings` | Open extension settings |
 
-也可以点击右下角状态栏的时钟图标立即触发提醒。
+You can also click the clock icon in the status bar to trigger a reminder instantly.
 
-## 设置项
+## Settings
 
-| 配置项 | 类型 | 默认值 | 说明 |
-|--------|------|--------|------|
-| `motivator.enabled` | boolean | `true` | 启动 VS Code 时自动开始提醒 |
-| `motivator.scheduleType` | string | `"interval"` | 调度方式：`interval`（固定间隔）或 `cron` |
-| `motivator.intervalMinutes` | number | `60` | 提醒间隔分钟数（scheduleType=interval 时有效） |
-| `motivator.cronExpression` | string | `"0 * * * *"` | Cron 表达式（scheduleType=cron 时有效） |
-| `motivator.breakDurationMinutes` | number | `5` | 休息倒计时时长（分钟），范围 1~60 |
-| `motivator.imageOrder` | string | `"random"` | 图片顺序：`random`（随机）或 `sequential`（顺序） |
-| `motivator.imagesPath` | string | `""` | 自定义图片文件夹绝对路径，留空使用内置 images 文件夹 |
-| `motivator.customMessages` | array | `[]` | 自定义提示消息列表，留空使用内置消息 |
-| `motivator.showNotification` | boolean | `true` | 是否显示右下角通知 |
-| `motivator.showWebview` | boolean | `true` | 是否打开图片面板 |
+| Setting | Type | Default | Description |
+|---------|------|---------|-------------|
+| `motivator.language` | string | `"auto"` | UI language: `auto`, `zh`, or `en` |
+| `motivator.enabled` | boolean | `true` | Auto-start reminders when VS Code launches |
+| `motivator.scheduleType` | string | `"interval"` | Schedule mode: `interval` or `cron` |
+| `motivator.intervalMinutes` | number | `60` | Reminder interval in minutes (used when scheduleType is `interval`) |
+| `motivator.cronExpression` | string | `"0 * * * *"` | Cron expression (used when scheduleType is `cron`) |
+| `motivator.breakDurationMinutes` | number | `5` | Break countdown duration in minutes (1–60) |
+| `motivator.imageOrder` | string | `"random"` | Image order: `random` or `sequential` |
+| `motivator.imagesPath` | string | `""` | Absolute path to a custom images folder; leave empty to use the built-in `images/` folder |
+| `motivator.customMessages` | array | `[]` | Custom reminder messages; leave empty to use built-in messages |
+| `motivator.showNotification` | boolean | `true` | Show a notification popup in the bottom-right corner |
+| `motivator.showWebview` | boolean | `true` | Open the image panel |
 
-## Cron 表达式示例
+## Cron Expression Examples
 
 ```
-每小时整点提醒：    0 * * * *
-每30分钟提醒：      */30 * * * *
-工作日每小时提醒：  0 9-18 * * 1-5
-每天下午3点提醒：   0 15 * * *
+Every hour on the hour:          0 * * * *
+Every 30 minutes:                */30 * * * *
+Weekdays 9 AM – 6 PM, hourly:   0 9-18 * * 1-5
+Every day at 3 PM:               0 15 * * *
 ```
 
-## 自定义图片
+## Custom Images
 
-1. 将图片（支持 `.png .jpg .jpeg .gif .webp .svg`）放入插件目录下的 `images/` 文件夹，或
-2. 在设置中配置 `motivator.imagesPath` 指向你自己的图片文件夹
+1. Place images (`.png .jpg .jpeg .gif .webp .svg`) in the `images/` folder inside the extension directory, or
+2. Set `motivator.imagesPath` in settings to point to your own images folder.
 
-## 安装与启动
+## Development
 
 ```bash
 npm install
 npm run compile
 ```
 
-然后按 `F5` 在 VS Code 中启动扩展开发主机。
+Then press `F5` in VS Code to launch the Extension Development Host.
 
-## 打包
+## Packaging
 
 ```bash
 npm i -g @vscode/vsce
 vsce package
 ```
 
-## 许可证
+## License
 
 MIT
