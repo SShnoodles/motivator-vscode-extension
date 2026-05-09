@@ -13,7 +13,7 @@ export class ImageManager {
     this.extensionPath = extensionPath;
   }
 
-  /** 返回图片目录：优先使用用户自定义路径，否则回退到插件内置 `images/`。 */
+  /** Returns the images directory: custom path takes priority, falls back to the built-in `images/` folder. */
   private getImagesDir(): string {
     const config = vscode.workspace.getConfiguration('motivator');
     const customPath = config.get<string>('imagesPath', '');
@@ -25,7 +25,7 @@ export class ImageManager {
     return path.join(this.extensionPath, 'images');
   }
 
-  /** 扫描图片目录，刷新内部图片列表。 */
+  /** Scans the images directory and refreshes the internal image list. */
   refresh(): void {
     const imagesDir = this.getImagesDir();
 
@@ -45,7 +45,7 @@ export class ImageManager {
     }
   }
 
-  /** 按配置的顺序（随机或顺序）返回下一张图片路径，无图片时返回 `undefined`。 */
+  /** Returns the next image path in the configured order (random or sequential). Returns `undefined` when no images are available. */
   getNextImage(): string | undefined {
     if (this.images.length === 0) {
       this.refresh();
@@ -66,7 +66,7 @@ export class ImageManager {
     }
   }
 
-  /** 返回图片目录路径。 */
+  /** Returns the resolved images directory path. */
   getImagesPath(): string {
     return this.getImagesDir();
   }

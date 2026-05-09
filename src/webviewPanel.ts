@@ -1,8 +1,9 @@
 import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as path from 'path';
+import { t } from './i18n';
 
-/** 转义 HTML 特殊字符，防止 XSS。 */
+/** Escapes HTML special characters to prevent XSS. */
 function escapeHtml(text: string): string {
   return text
     .replace(/&/g, '&amp;')
@@ -26,13 +27,13 @@ export class MotivatorPanel {
     this.panel.onDidDispose(() => this.dispose(), null, this.disposables);
   }
 
-  /** 创建（或重新创建）Webview 面板并渲染提醒内容。 */
+  /** Creates (or recreates) the Webview panel and renders the reminder content. */
   static show(
     extensionUri: vscode.Uri,
     message: string,
     imagePath: string | undefined
   ): void {
-    // 始终重新创建
+    // Always recreate to show the latest locale and content.
     if (MotivatorPanel.currentPanel) {
       MotivatorPanel.currentPanel.dispose();
     }
@@ -48,7 +49,7 @@ export class MotivatorPanel {
 
     const panel = vscode.window.createWebviewPanel(
       'motivatorReminder',
-      '🌸 休息一下~',
+      t().panelTitle,
       column ?? vscode.ViewColumn.One,
       {
         enableScripts: true,
@@ -62,13 +63,13 @@ export class MotivatorPanel {
     instance.render(message, imagePath);
   }
 
-  /** 将消息和图片填充到面板 HTML 中，无图片时显示 emoji 占位符。 */
+  /** Populates the panel HTML with the message and image; shows an emoji placeholder when no image is available. */
   private render(message: string, imagePath: string | undefined): void {
     let imageHtml = '';
 
     if (imagePath && fs.existsSync(imagePath)) {
       const imageUri = this.panel.webview.asWebviewUri(vscode.Uri.file(imagePath));
-      imageHtml = `<img src="${imageUri}" alt="休息提醒图片" class="reminder-image" />`;
+      imageHtml = `<img src="${imageUri}" alt="${t().htmlImgAlt}" class="reminder-image" />`;
     } else {
       imageHtml = `<div class="emoji-fallback">🌸</div>`;
     }
@@ -76,15 +77,15 @@ export class MotivatorPanel {
     this.panel.webview.html = this.buildHtml(escapeHtml(message), imageHtml);
   }
 
-  /** 构建并返回完整的提醒页面 HTML。 */
+  /** Builds and returns the full reminder page HTML. */
   private buildHtml(message: string, imageHtml: string): string {
     return /* html */ `<!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="${t().htmlLang}">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src ${this.panel.webview.cspSource} data:; style-src 'unsafe-inline';">
-  <title>休息一下</title>
+  <title>${t().htmlTitle}</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -178,25 +179,25 @@ export class MotivatorPanel {
 </head>
 <body>
   <div class="container">
-    <div class="title">☕ 休息时间到啦！</div>
+    <div class="title">${t().htmlBreakTime}</div>
 
     ${imageHtml}
 
     <p class="message">${message}</p>
 
-    <p class="footer">Motivator · 保持健康，才能更好地创造世界 💪</p>
+    <p class="footer">${t().htmlFooter}</p>
   </div>
 
 </body>
 </html>`;
   }
 
-  /** 销毁当前面板（如有）。 */
+  /** Disposes the current panel if one exists. */
   static disposeAll(): void {
     MotivatorPanel.currentPanel?.dispose();
   }
 
-  /** 销毁面板并清理所有 Disposable。 */
+  /** Disposes the panel and cleans up all Disposables. */
   dispose(): void {
     MotivatorPanel.currentPanel = undefined;
     this.panel.dispose();

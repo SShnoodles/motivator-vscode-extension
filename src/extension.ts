@@ -1,10 +1,11 @@
 import * as vscode from 'vscode';
 import { ReminderService } from './reminderService';
 import { ImageManager } from './imageManager';
+import { t } from './i18n';
 
 let reminderService: ReminderService | undefined;
 
-/** 插件激活入口，初始化服务并注册所有命令。 */
+/** Extension activation entry point. Initializes services and registers all commands. */
 export function activate(context: vscode.ExtensionContext): void {
   const imageManager = new ImageManager(context.extensionPath);
   reminderService = new ReminderService(context.extensionUri, imageManager);
@@ -19,12 +20,12 @@ export function activate(context: vscode.ExtensionContext): void {
 
     vscode.commands.registerCommand('motivator.start', () => {
       reminderService?.start();
-      vscode.window.showInformationMessage('🌸 Motivator 休息提醒已开启！');
+      vscode.window.showInformationMessage(t().cmdStarted);
     }),
 
     vscode.commands.registerCommand('motivator.stop', () => {
       reminderService?.stop();
-      vscode.window.showInformationMessage('Motivator 休息提醒已停止。');
+      vscode.window.showInformationMessage(t().cmdStopped);
     }),
 
     vscode.commands.registerCommand('motivator.showNow', () => {
@@ -46,7 +47,7 @@ export function activate(context: vscode.ExtensionContext): void {
   );
 }
 
-/** 插件停用时清理资源。 */
+/** Cleans up resources when the extension is deactivated. */
 export function deactivate(): void {
   reminderService?.dispose();
   reminderService = undefined;
