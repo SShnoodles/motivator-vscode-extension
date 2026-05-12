@@ -1,5 +1,9 @@
 # Motivator - Break Reminder 🌸
 
+[![](https://vsmarketplacebadges.dev/version-short/ssnoodles.motivator-vscode-extension.svg)](https://marketplace.visualstudio.com/items?itemName=ssnoodles.motivator-vscode-extension)
+[![](https://vsmarketplacebadges.dev/installs-short/ssnoodles.motivator-vscode-extension.svg)](https://marketplace.visualstudio.com/items?itemName=ssnoodles.motivator-vscode-extension)
+[![](https://vsmarketplacebadges.dev/downloads-short/ssnoodles.motivator-vscode-extension.svg)](https://marketplace.visualstudio.com/items?itemName=ssnoodles.motivator-vscode-extension)
+
 A cute VS Code extension that reminds you to take regular breaks, protect your eyes, and stay healthy while coding!
 
 ## Features
