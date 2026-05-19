@@ -69,7 +69,11 @@ export class MotivatorPanel {
 
     if (imagePath && fs.existsSync(imagePath)) {
       const imageUri = this.panel.webview.asWebviewUri(vscode.Uri.file(imagePath));
-      imageHtml = `<img src="${imageUri}" alt="${t().htmlImgAlt}" class="reminder-image" />`;
+      if (path.extname(imagePath).toLowerCase() === '.mp4') {
+        imageHtml = `<video src="${imageUri}" class="reminder-image" autoplay loop muted playsinline></video>`;
+      } else {
+        imageHtml = `<img src="${imageUri}" alt="${t().htmlImgAlt}" class="reminder-image" />`;
+      }
     } else {
       imageHtml = `<div class="emoji-fallback">🌸</div>`;
     }
@@ -84,7 +88,7 @@ export class MotivatorPanel {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src ${this.panel.webview.cspSource} data:; style-src 'unsafe-inline';">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src ${this.panel.webview.cspSource} data:; media-src ${this.panel.webview.cspSource}; style-src 'unsafe-inline';">
   <title>${t().htmlTitle}</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -147,6 +151,17 @@ export class MotivatorPanel {
     .reminder-image:hover {
       transform: scale(1.03);
       box-shadow: 0 18px 50px rgba(0, 0, 0, 0.22);
+    }
+
+    video.reminder-image {
+      max-width: 100%;
+      max-height: 360px;
+      border-radius: 20px;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+      margin-bottom: 28px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .emoji-fallback {

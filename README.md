@@ -9,7 +9,7 @@ A cute VS Code extension that reminds you to take regular breaks, protect your e
 ## Features
 
 - ⏰ **Scheduled reminders** — supports a fixed interval or a cron expression
-- 🖼️ **Image panel** — opens a full-screen panel with your images, played randomly or sequentially
+- 🖼️ **Image & video panel** — opens a full-screen panel with your images or MP4 videos, played randomly or sequentially
 - ⏱️ **Status-bar countdown** — shows a break countdown after each reminder, then flashes when it ends
 - 💬 **Motivational messages** — 20 built-in messages (English & Chinese); fully customizable
 - 🔔 **Notification popup** — bottom-right toast notification, can be toggled independently
@@ -53,7 +53,7 @@ Every day at 3 PM:               0 15 * * *
 
 ## Custom Images
 
-1. Place images (`.png .jpg .jpeg .gif .webp .svg`) in the `images/` folder inside the extension directory, or
+1. Place images or videos (`.png .jpg .jpeg .gif .webp .svg .bmp .mp4`) in the `images/` folder inside the extension directory, or
 2. Set `motivator.imagesPath` in settings to point to your own images folder.
 
 ## Development
