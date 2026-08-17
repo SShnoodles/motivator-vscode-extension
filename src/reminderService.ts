@@ -5,6 +5,8 @@ import { MotivatorPanel } from './webviewPanel';
 import { getRandomMessage } from './messages';
 import { t } from './i18n';
 
+const NOTIFICATION_DURATION_MS = 5_000;
+
 export class ReminderService implements vscode.Disposable {
   private cronTask: ReturnType<typeof cron.schedule> | null = null;
   private intervalTimer: ReturnType<typeof setInterval> | null = null;
@@ -84,7 +86,15 @@ export class ReminderService implements vscode.Disposable {
     }
 
     if (showNotification) {
-      vscode.window.showInformationMessage(`🌸 ${message}`);
+      void vscode.window.withProgress(
+        {
+          location: vscode.ProgressLocation.Notification,
+          title: `🌸 ${message}`,
+        },
+        () => new Promise<void>((resolve) => {
+          setTimeout(resolve, NOTIFICATION_DURATION_MS);
+        })
+      );
     }
 
     this.startCountdown(breakMinutes * 60);
