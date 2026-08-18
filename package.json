@@ -2,7 +2,7 @@
   "name": "motivator-vscode-extension",
   "displayName": "Motivator - Break Reminder",
   "description": "A cute VS Code extension that reminds you to take breaks and keeps you healthy while coding.",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "author": "ssnoodles",
 	"publisher": "ssnoodles",
 	"license": "MIT",

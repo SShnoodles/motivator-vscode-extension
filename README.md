@@ -1,5 +1,7 @@
 # Motivator - Break Reminder 🌸
 
+**English** | [简体中文](README.zh-CN.md)
+
 [![](https://vsmarketplacebadges.dev/version-short/ssnoodles.motivator-vscode-extension.svg)](https://marketplace.visualstudio.com/items?itemName=ssnoodles.motivator-vscode-extension)
 [![](https://vsmarketplacebadges.dev/installs-short/ssnoodles.motivator-vscode-extension.svg)](https://marketplace.visualstudio.com/items?itemName=ssnoodles.motivator-vscode-extension)
 [![](https://vsmarketplacebadges.dev/downloads-short/ssnoodles.motivator-vscode-extension.svg)](https://marketplace.visualstudio.com/items?itemName=ssnoodles.motivator-vscode-extension)
@@ -12,7 +14,7 @@ A cute VS Code extension that reminds you to take regular breaks, protect your e
 - 🖼️ **Image & video panel** — opens a full-screen panel with your images or MP4 videos, played randomly or sequentially
 - ⏱️ **Status-bar countdown** — shows a break countdown after each reminder, then flashes when it ends
 - 💬 **Motivational messages** — 20 built-in messages (English & Chinese); fully customizable
-- 🔔 **Notification popup** — bottom-right toast notification, can be toggled independently
+- 🔔 **Notification popup** — bottom-right toast notification that closes automatically after 5 seconds and can be toggled independently
 - 🌐 **Bilingual UI** — auto-detects VS Code display language (English / Chinese), or set it manually
 
 ## Commands
@@ -35,11 +37,11 @@ You can also click the clock icon in the status bar to trigger a reminder instan
 | `motivator.scheduleType` | string | `"interval"` | Schedule mode: `interval` or `cron` |
 | `motivator.intervalMinutes` | number | `60` | Reminder interval in minutes (used when scheduleType is `interval`) |
 | `motivator.cronExpression` | string | `"0 * * * *"` | Cron expression (used when scheduleType is `cron`) |
-| `motivator.breakDurationMinutes` | number | `5` | Break countdown duration in minutes (1–60) |
+| `motivator.breakDurationMinutes` | number | `5` | Break countdown duration in minutes (5–60) |
 | `motivator.imageOrder` | string | `"random"` | Image order: `random` or `sequential` |
 | `motivator.imagesPath` | string | `""` | Absolute path to a custom images folder; leave empty to use the built-in `images/` folder |
 | `motivator.customMessages` | array | `[]` | Custom reminder messages; leave empty to use built-in messages |
-| `motivator.showNotification` | boolean | `true` | Show a notification popup in the bottom-right corner |
+| `motivator.showNotification` | boolean | `true` | Show a notification popup in the bottom-right corner; it closes automatically after 5 seconds |
 | `motivator.showWebview` | boolean | `true` | Open the image panel |
 
 ## Cron Expression Examples
