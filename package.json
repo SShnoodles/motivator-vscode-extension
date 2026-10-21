@@ -110,7 +110,7 @@
         "motivator.imagesPath": {
           "type": "string",
           "default": "",
-          "description": "Absolute path to a custom images folder. Leave empty to use the built-in images folder. Supports .png .jpg .jpeg .gif .webp .svg"
+          "description": "Absolute path to a custom images folder. Leave empty to use the built-in images folder. Supports .png .jpg .jpeg .gif .webp .svg .bmp .jxl .mp4"
         },
         "motivator.customMessages": {
           "type": "array",
@@ -142,8 +142,10 @@
   },
   "scripts": {
     "vscode:prepublish": "npm run esbuild-base -- --minify",
-    "esbuild-base": "esbuild ./src/extension.ts --bundle --outfile=out/extension.js --external:vscode --format=cjs --platform=node",
+    "esbuild-base": "npm run build:jxl && esbuild ./src/extension.ts --bundle --outfile=out/extension.js --external:vscode --format=cjs --platform=node",
+    "build:jxl": "esbuild ./src/jxlPreview.ts --bundle --outfile=out/jxlPreview.js --format=iife --platform=browser --target=chrome102 --minify && node scripts/copyJxlCodec.cjs",
     "compile": "npm run esbuild-base -- --sourcemap",
+    "test": "npm run compile && node scripts/verify.cjs",
     "watch": "npm run esbuild-base -- --sourcemap --watch",
     "lint": "eslint src --ext ts"
   },
@@ -158,6 +160,7 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
+    "@jsquash/jxl": "^1.3.0",
     "node-cron": "^3.0.3"
   }
 }

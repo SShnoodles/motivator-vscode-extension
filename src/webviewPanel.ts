@@ -66,11 +66,17 @@ export class MotivatorPanel {
   /** Populates the panel HTML with the message and image; shows an emoji placeholder when no image is available. */
   private render(message: string, imagePath: string | undefined): void {
     let imageHtml = '';
+    let jxlScript = '';
 
     if (imagePath && fs.existsSync(imagePath)) {
       const imageUri = this.panel.webview.asWebviewUri(vscode.Uri.file(imagePath));
       if (path.extname(imagePath).toLowerCase() === '.mp4') {
         imageHtml = `<video src="${imageUri}" class="reminder-image" autoplay loop muted playsinline></video>`;
+      } else if (path.extname(imagePath).toLowerCase() === '.jxl') {
+        const wasmUri = this.panel.webview.asWebviewUri(vscode.Uri.joinPath(this.extensionUri, 'out', 'jxl_dec.wasm'));
+        const scriptUri = this.panel.webview.asWebviewUri(vscode.Uri.joinPath(this.extensionUri, 'out', 'jxlPreview.js'));
+        imageHtml = `<canvas data-jxl-src="${imageUri}" data-wasm-src="${wasmUri}" role="img" aria-label="${escapeHtml(t().htmlImgAlt)}" class="reminder-image"></canvas>`;
+        jxlScript = `<script src="${scriptUri}"></script>`;
       } else {
         imageHtml = `<img src="${imageUri}" alt="${t().htmlImgAlt}" class="reminder-image" />`;
       }
@@ -78,17 +84,17 @@ export class MotivatorPanel {
       imageHtml = `<div class="emoji-fallback">🌸</div>`;
     }
 
-    this.panel.webview.html = this.buildHtml(escapeHtml(message), imageHtml);
+    this.panel.webview.html = this.buildHtml(escapeHtml(message), imageHtml, jxlScript);
   }
 
   /** Builds and returns the full reminder page HTML. */
-  private buildHtml(message: string, imageHtml: string): string {
+  private buildHtml(message: string, imageHtml: string, jxlScript: string): string {
     return /* html */ `<!DOCTYPE html>
 <html lang="${t().htmlLang}">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src ${this.panel.webview.cspSource} data:; media-src ${this.panel.webview.cspSource}; style-src 'unsafe-inline';">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src ${this.panel.webview.cspSource} data:; media-src ${this.panel.webview.cspSource}; connect-src ${this.panel.webview.cspSource}; script-src ${this.panel.webview.cspSource} 'wasm-unsafe-eval'; style-src 'unsafe-inline';">
   <title>${t().htmlTitle}</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -203,6 +209,7 @@ export class MotivatorPanel {
     <p class="footer">${t().htmlFooter}</p>
   </div>
 
+  ${jxlScript}
 </body>
 </html>`;
   }

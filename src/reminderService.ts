@@ -72,6 +72,12 @@ export class ReminderService implements vscode.Disposable {
 
   /** Immediately triggers one reminder, showing a message and image. */
   trigger(): void {
+    // Each VS Code window runs its own extension host and schedule.
+    // Skip background windows without consuming an image or starting a break.
+    if (!vscode.window.state.focused) {
+      return;
+    }
+
     const config = vscode.workspace.getConfiguration('motivator');
     const customMessages = config.get<string[]>('customMessages', []);
     const showNotification = config.get<boolean>('showNotification', true);
